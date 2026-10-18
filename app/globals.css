@@ -1,0 +1,23 @@
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #FFFFFF;
+  color: #0A2540;
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+* { box-sizing: border-box; }
+a { color: #1463D8; text-decoration: none; }
+a:hover { color: #0B7F5F; }
+::selection { background: #1463D8; color: #fff; }
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-manrope), Manrope, sans-serif;
+  font-weight: 800;
+  color: #0A2540;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
