@@ -1,7 +1,4 @@
 /* Homepage styles. Values carried over from the original Clara 2.0 design. */
-
-.blue { color: #1463D8; }
-.green { color: #0B7F5F; }
 .srOnly {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
@@ -11,12 +8,8 @@
   margin: 0 0 18px;
   font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #0B7F5F;
 }
-.pill {
-  display: inline-block; margin: 0 0 20px; padding: 7px 14px; border-radius: 999px; background: #1463D8;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #FFFFFF;
-}
-.h2xl { font-size: clamp(30px, 4.6vw, 62px); line-height: 1.05; letter-spacing: -0.035em; text-wrap: balance; }
-.h2lg { font-size: clamp(30px, 4.4vw, 60px); line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance; }
+.h2xl { font-size: clamp(30px, 4.6vw, 62px); line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
+.h2lg { font-size: clamp(30px, 4.4vw, 60px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; }
 
 .btnPrimary, .btnGhost {
   padding: 14px 24px; border-radius: 999px; font-size: 14px; font-weight: 600;
@@ -65,9 +58,9 @@
 .cueHidden { opacity: 0; }
 .cueBox { width: max(250px, min(34vw, 440px)); }
 .cueBoxWide { width: max(250px, min(36vw, 440px)); }
-.heroTitle { font-size: clamp(30px, 3.7vw, 60px); line-height: 1.04; letter-spacing: -0.03em; text-wrap: pretty; }
-.cueTitle { font-size: clamp(26px, 3.3vw, 52px); line-height: 1.08; letter-spacing: -0.03em; }
-.cueTitleBig { font-size: clamp(30px, 4.2vw, 68px); line-height: 1.02; letter-spacing: -0.035em; }
+.heroTitle { font-size: clamp(30px, 3.7vw, 60px); line-height: 1.04; letter-spacing: -0.018em; text-wrap: pretty; }
+.cueTitle { font-size: clamp(26px, 3.3vw, 52px); line-height: 1.08; letter-spacing: -0.018em; }
+.cueTitleBig { font-size: clamp(30px, 4.2vw, 68px); line-height: 1.02; letter-spacing: -0.02em; }
 .cueText { margin: 20px 0 0; font-size: clamp(14px, 1.1vw, 17px); line-height: 1.65; color: #43566B; }
 .cueActions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
 
@@ -81,6 +74,28 @@
   box-shadow: 0 50px 100px -50px rgba(20,99,216,0.75);
 }
 .bannerImg { object-fit: cover; object-position: right center; }
+
+/* Animated owl, placed exactly where the owl stood in the original banner photo:
+   in that photo the owl is 66.3% of the image height, centred at x 83.5% with
+   its feet at y 92.3%. The background is object-fit: cover, so we reproduce its
+   scaling (Hi = rendered image height) and crop (--px = object-position x) in
+   container units. In the video, the owl is 85.9% of the frame height, centred
+   at x 49%, feet at y 94.4%, hence the 0.772 / 0.194 factors below. */
+.bannerOwlBox { position: absolute; inset: 0; z-index: 1; container-type: size; pointer-events: none; }
+.bannerOwl {
+  --ar: 2.2336;                                   /* banner photo: 1874 / 839 */
+  --Hi: max(100cqh, calc(100cqw / var(--ar)));
+  --px: 1;
+  position: absolute;
+  height: calc(var(--Hi) * 0.772); width: auto; aspect-ratio: 16 / 9;
+  left: calc(0.835 * var(--ar) * var(--Hi) - var(--px) * (var(--ar) * var(--Hi) - 100cqw));
+  top: calc(0.194 * var(--Hi) - 0.5 * (var(--Hi) - 100cqh));
+  transform: translateX(-49%);
+  opacity: 0; transition: opacity 0.5s ease;
+}
+.bannerOwlOn { opacity: 1; }
+.bannerOwlSrc { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.why .bannerText { z-index: 2; }
 .bannerShade {
   position: absolute; inset: 0;
   background: linear-gradient(90deg, rgba(14,74,190,0.7) 0%, rgba(14,74,190,0.35) 45%, rgba(14,74,190,0) 62%);
@@ -89,18 +104,21 @@
   .bannerShade { background: linear-gradient(90deg, rgba(14,74,190,0.82) 0%, rgba(14,74,190,0.55) 70%, rgba(14,74,190,0.25) 100%); }
 }
 .bannerText { position: relative; width: max(54%, min(100%, 300px)); }
-.bannerBadge {
-  display: inline-flex; align-items: center; gap: 10px; margin: 0; padding: 8px 16px; border-radius: 999px; background: #FFFFFF;
-  font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #0B7F5F;
-}
-.bannerBadge span {
-  flex: none; width: 8px; height: 8px; border-radius: 50%; background: #12A57C; box-shadow: 0 0 0 4px rgba(18,165,124,0.25);
-}
 .bannerTitle {
   margin-top: clamp(20px, 3vw, 32px); max-width: 100%;
-  font-size: clamp(26px, 4.2vw, 60px); line-height: 0.98; letter-spacing: -0.045em; color: #FFFFFF;
+  font-size: clamp(24px, 3.7vw, 54px); line-height: 1.02; letter-spacing: -0.02em; color: #FFFFFF;
   text-shadow: 0 2px 24px rgba(8,40,120,0.35); text-wrap: balance;
 }
+/* Heading set as four fixed lines. */
+.titleLine { display: block; white-space: nowrap; }
+/* Quiet second line under the banner heading: same family, lighter and smaller. */
+.titleSub {
+  display: flex; align-items: center; gap: 12px; margin-top: 0.55em;
+  font-size: 0.4em; font-weight: 500; line-height: 1.2; letter-spacing: 0.01em; white-space: nowrap;
+  color: rgba(255,255,255,0.9); text-shadow: none;
+}
+.titleSub::before { content: ""; width: 28px; height: 2px; border-radius: 2px; background: #3DDC97; flex: none; }
+@media (max-width: 400px) { .bannerTitle { font-size: min(26px, 7vw); } }
 .highlight { background: linear-gradient(transparent 62%, rgba(18,165,124,0.85) 62%, rgba(18,165,124,0.85) 92%, transparent 92%); }
 
 /* "Why schools choose Clara": heading, cards and note fit one screen. */
@@ -128,6 +146,7 @@
   .why .banner { height: calc(100svh - 63px - 5vh); align-items: flex-start; }
   /* Narrow, tall banner: keep the owl in frame. */
   .why .bannerImg { object-position: 90% center; }
+  .bannerOwl { --px: 0.9; }
 }
 .whyFit {
   min-height: 100svh;
@@ -152,11 +171,28 @@
   box-shadow: 0 30px 60px -44px rgba(10,37,64,0.4); display: flex; flex-direction: column; gap: 14px;
 }
 .pillarImg { object-fit: cover; object-position: right center; }
+
+/* Each card's background is a looping video (components/CardVideo.tsx). */
+/* The videos carry a small star watermark at ~(91%, 84%) of the frame. Where a
+   card shows the full video height (tablet and desktop), zoom 26% from the top
+   so that strip falls below the card edge. Phones already crop it out. */
+@media (min-width: 641px) {
+  video.pillarImg { transform: scale(1.26); transform-origin: 0% 0%; }
+}
+.pillar { transition: box-shadow 0.4s ease; }
+.pillar:hover { box-shadow: 0 34px 70px -40px rgba(10,37,64,0.5); }
+/* A soft white patch only behind the text (top-left); the rest of the video shows at full strength. */
 .pillar::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.45) 38%, rgba(255,255,255,0) 58%),
-    linear-gradient(90deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0.2) 78%, rgba(255,255,255,0) 100%);
+  inset: 0 auto auto 0; width: 76%; height: 54%;
+  background: rgba(255,255,255,0.84);
+  filter: blur(22px); transform: translate(-22px, -22px); /* soft edges, sized to the text block */
+}
+/* Phones: short, wide cards; text kept to the left 60%, patch fades out before the people. */
+@media (max-width: 640px) {
+  .pillar::after { inset: 0; width: auto; height: auto; filter: none; transform: none;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.82) 48%, rgba(255,255,255,0) 72%); }
+  .pillars .pillar p { max-width: 62%; }
 }
 .pillar > .pillarTop, .pillar > h3, .pillar > p { position: relative; z-index: 1; }
 @media (min-width: 1000px) {
@@ -172,10 +208,8 @@
   .whyFit .centerNote { font-size: 14px; line-height: 1.5; }
 }
 .pillarTop { display: flex; align-items: center; justify-content: space-between; }
-.pillarNum { font-family: var(--font-manrope), Manrope, sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 0.08em; color: #1463D8; }
-.ruleGreen, .ruleBlue { width: 34px; height: 3px; border-radius: 2px; background: #12A57C; }
-.ruleBlue { background: #1463D8; }
-.pillar h3 { font-size: clamp(22px, min(2.6vw, 3.6vh), 34px); line-height: 1; letter-spacing: -0.02em; }
+.pillarNum { font-family: var(--font-display), Manrope, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; color: #1463D8; }
+.pillar h3 { font-size: clamp(22px, min(2.6vw, 3.6vh), 34px); line-height: 1; letter-spacing: -0.01em; }
 .pillar p { margin: 0; font-size: 15px; line-height: 1.6; color: #43566B; }
 .centerNote { margin: clamp(34px, 5vw, 54px) auto 0; max-width: 640px; text-align: center; font-size: 16px; line-height: 1.65; color: #43566B; }
 
@@ -200,7 +234,7 @@
   .realitySection .statCard strong { font-size: 36px; }
   .realitySection .statCard span { margin-top: 6px; font-size: 14px; }
 }
-.splitHead .realityTitle { max-width: 700px; letter-spacing: -0.03em; text-wrap: wrap; }
+.splitHead .realityTitle { max-width: 700px; letter-spacing: -0.018em; text-wrap: wrap; }
 .realityGrid {
   margin: 0; padding: 0; list-style: none;
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
@@ -210,22 +244,34 @@
   padding: 30px 26px 26px; border-radius: 20px; background: #FFFFFF; border: 1px solid #DCE6F0;
   box-shadow: 0 30px 60px -44px rgba(10,37,64,0.4); transform-style: preserve-3d;
 }
-/* Background photo only — the card's size and layout are unchanged. The photos
-   fade to white on the left, so they're anchored right behind the text. */
+/* Background video (components/CardVideo.tsx), anchored per card via --pos so the
+   student stays to the right of the text. Same treatment as the pillar cards:
+   a soft white patch only behind the text, the rest of the video at full strength. */
 .statCard { position: relative; overflow: hidden; }
 .statImg { object-fit: cover; object-position: right center; }
-/* Soft wash behind the text so it stays readable over the photo. */
 .statCard::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(90deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0.2) 78%, rgba(255,255,255,0) 100%);
+  content: ""; position: absolute; pointer-events: none;
+  inset: 0 auto auto 0; width: 76%; height: 58%;
+  background: rgba(255,255,255,0.84);
+  filter: blur(22px); transform: translate(-22px, -22px);
 }
-.statCardBlue::after {
-  background: linear-gradient(90deg, rgba(234,242,253,0.95) 0%, rgba(234,242,253,0.82) 40%, rgba(234,242,253,0.2) 78%, rgba(234,242,253,0) 100%);
+.statCardBlue::after { background: rgba(234,242,253,0.88); }
+/* The videos carry a small star watermark near the bottom-right. Where a card
+   shows the full video height (tablet and desktop), zoom 26% from the top so
+   it falls below the card edge. Phones already crop it out. */
+@media (min-width: 641px) {
+  .realitySection video.statImg { transform: scale(1.26); transform-origin: var(--pos, right) 0%; }
+}
+@media (max-width: 640px) {
+  .statCard::after { inset: 0; width: auto; height: auto; filter: none; transform: none;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.82) 48%, rgba(255,255,255,0) 72%); }
+  .statCardBlue::after { background: linear-gradient(90deg, rgba(234,242,253,0.92) 0%, rgba(234,242,253,0.84) 48%, rgba(234,242,253,0) 72%); }
+  .realitySection .statCard span { max-width: 62%; }
 }
 .statCard strong, .statCard span { position: relative; z-index: 1; }
 .statCard strong {
-  display: block; font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 800;
-  font-size: clamp(44px, 5vw, 66px); line-height: 1; letter-spacing: -0.03em; color: #0A2540;
+  display: block; font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(44px, 5vw, 66px); line-height: 1; letter-spacing: -0.018em; color: #0A2540;
 }
 .statCard span { display: block; margin-top: 14px; font-size: 15px; line-height: 1.5; color: #43566B; }
 .statCardBlue { background: #EAF2FD; border-color: rgba(20,99,216,0.3); }
@@ -234,16 +280,50 @@
 /* ── 08 Mandate ──────────────────────────────────────── */
 .quoteTitle {
   margin-bottom: clamp(32px, 5vw, 56px); max-width: 780px;
-  font-weight: 700; font-size: clamp(26px, 3.6vw, 46px); line-height: 1.16; letter-spacing: -0.025em;
+  font-weight: 700; font-size: clamp(26px, 3.6vw, 46px); line-height: 1.16; letter-spacing: -0.014em;
 }
-.mandate { display: flex; flex-wrap: wrap; gap: clamp(20px, 3vw, 40px); align-items: stretch; }
-.mandateCards { flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
-.mandateCard { margin: 0; padding: 30px 28px; border-radius: 20px; background: #FFFFFF; border: 1px solid #DCE6F0; }
-.mandateCard figcaption { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: #1463D8; }
-.mandateCard blockquote { margin: 16px 0 0; font-size: clamp(16px, 1.7vw, 19px); line-height: 1.55; color: #0A2540; }
-.mandateCard p { margin: 14px 0 0; font-size: 13px; color: #5B6B7D; }
-.mandateArt { position: relative; flex: 1 1 340px; min-width: 0; display: flex; align-items: center; justify-content: center; }
-.mandateArt img { display: block; width: 100%; max-width: 560px; height: auto; mix-blend-mode: multiply; }
+/* Text (heading + cards) on the left, the animation filling the right column.
+   Stacked on narrower screens. */
+.mandate { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 3vw, 40px); align-items: center; }
+@media (min-width: 900px) {
+  .mandate { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+  .mandateText .quoteTitle { font-size: clamp(26px, 2.9vw, 42px); }
+  /* Let the animation run into the section's right margin, up to the screen edge. */
+  .mandateArt { margin-right: calc(-1 * clamp(16px, 5vw, 80px)); }
+}
+.mandateText { min-width: 0; }
+.mandateCards { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.mandateCard { margin: 0; padding: clamp(18px, 2.4vh, 26px) clamp(20px, 2vw, 26px); border-radius: 20px; background: #FFFFFF; border: 1px solid #DCE6F0; }
+.mandateCard figcaption {
+  font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(17px, 1.55vw, 21px); line-height: 1.25; letter-spacing: -0.01em; color: #0A2540;
+}
+.mandateCard figcaption span {
+  display: table; margin-bottom: 8px; padding: 2px 9px; border-radius: 999px;
+  background: #EAF2FD; color: #1463D8; font-family: var(--font-body), Inter, system-ui, sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0;
+}
+.mandateCard blockquote { margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: #43566B; }
+.mandateCard p { margin: 8px 0 0; font-size: 12px; line-height: 1.5; color: #5B6B7D; }
+.mandateArt { position: relative; min-width: 0; }
+/* The box spans the full width of the right column. The video's scene sits in
+   x 5%–88.5%, y 11%–95% of its frame (measured across every frame); scaling by
+   1.198 around (30.3%, 68.2%) crops exactly those white margins, so the scene
+   fills the box edge to edge without cutting anything off. */
+.mandateMedia { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; }
+.mandateMedia img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; mix-blend-mode: multiply;
+}
+.mandateVideo {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transform: scale(1.198); transform-origin: 30.3% 68.2%;
+  mix-blend-mode: multiply; /* white video background blends into the section */
+  opacity: 0; transition: opacity 0.6s ease; pointer-events: none;
+}
+.mandateVideoOn { opacity: 1; }
+.mandateMedia img { transition: opacity 0.6s ease; }
+.mandateMedia .mandatePhotoOff { opacity: 0; }
 
 /* ── 09 Camp vs system ───────────────────────────────── */
 .versus {
@@ -256,41 +336,65 @@
 .versusTable th {
   text-align: left; vertical-align: bottom; align-self: end;
   padding: clamp(26px, 3.4vw, 44px) clamp(18px, 3vw, 44px) clamp(22px, 2.6vw, 30px) clamp(16px, 2.4vw, 32px);
-  font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 800;
-  font-size: clamp(20px, 2.4vw, 32px); line-height: 1.08; letter-spacing: -0.025em; color: #43566B;
+  font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(22px, 2.7vw, 38px); line-height: 1.08; letter-spacing: -0.014em; color: #43566B;
 }
 .versusTable th + th { padding: clamp(26px, 3.4vw, 44px) clamp(16px, 2.4vw, 32px) clamp(22px, 2.6vw, 30px) clamp(18px, 3vw, 44px); color: #FFFFFF; }
 .versusTable th span {
-  display: block; margin-bottom: 8px; font-family: var(--font-inter), Inter, sans-serif;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #5B6B7D;
+  display: block; margin-bottom: 8px; font-family: var(--font-body), Inter, system-ui, sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #5B6B7D;
 }
 .versusTable th + th span { color: #FFFFFF; }
 .versusTable td {
-  display: flex; gap: 12px; align-items: flex-start;
-  padding: clamp(16px, 2vw, 22px) clamp(18px, 3vw, 44px) clamp(16px, 2vw, 22px) clamp(16px, 2.4vw, 32px);
-  border-top: 1px solid #DCE6F0; font-size: clamp(14px, 1.2vw, 16px); line-height: 1.5; color: #43566B;
+  display: flex; gap: 14px; align-items: center;
+  padding: clamp(18px, 2.2vw, 26px) clamp(18px, 3vw, 44px) clamp(18px, 2.2vw, 26px) clamp(16px, 2.4vw, 32px);
+  border-top: 1px solid #DCE6F0; font-size: clamp(15px, 1.45vw, 19px); line-height: 1.45; color: #43566B;
 }
 .versusTable td + td {
-  padding: clamp(16px, 2vw, 22px) clamp(16px, 2.4vw, 32px) clamp(16px, 2vw, 22px) clamp(18px, 3vw, 44px);
+  padding: clamp(18px, 2.2vw, 26px) clamp(16px, 2.4vw, 32px) clamp(18px, 2.2vw, 26px) clamp(18px, 3vw, 44px);
   border-top-color: rgba(255,255,255,0.18); font-weight: 500; color: #FFFFFF;
 }
+/* Red cross / green tick icons, animated on a loop. Each cycle starts empty:
+   the circle pops in, then the mark is drawn stroke by stroke (tick: short
+   arm, then long arm; cross: one bar, then the other). It holds, fades out
+   and repeats. Rows are staggered top to bottom via --i. */
 .cross, .tick {
-  flex: none; margin-top: 2px; width: 20px; height: 20px; border-radius: 50%;
-  display: grid; place-items: center; font-size: 12px; font-weight: 700;
-  background: #E3ECF5; color: #5B6B7D;
+  --cycle: 4.8s; --delay: calc(var(--i, 0) * 0.28s);
+  position: relative; flex: none; width: clamp(34px, 2.9vw, 44px); height: clamp(34px, 2.9vw, 44px); border-radius: 50%;
+  display: grid; place-items: center;
+  animation: markBadge var(--cycle) cubic-bezier(0.34,1.56,0.64,1) var(--delay) infinite both;
 }
-.tick { background: #12A57C; color: #FFFFFF; }
+.cross { background: #E5484D; box-shadow: 0 8px 18px -8px rgba(229,72,77,0.7); }
+.tick { background: #12A57C; box-shadow: 0 8px 18px -8px rgba(18,165,124,0.75); }
+.cross svg, .tick svg { width: 64%; height: 64%; fill: none; stroke: #FFFFFF; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+/* Tick: one path drawn from its start (the short arm) to its end (the long arm). */
+.tick path { stroke-dasharray: 20; stroke-dashoffset: 20; animation: drawTick var(--cycle) linear var(--delay) infinite both; }
+/* Cross: two bars, drawn one after the other. */
+.cross path { stroke-dasharray: 13; stroke-dashoffset: 13; animation: drawBar1 var(--cycle) linear var(--delay) infinite both; }
+.cross path + path { animation-name: drawBar2; }
+@keyframes markBadge {
+  0%, 2% { transform: scale(0); opacity: 0; }
+  10% { transform: scale(1.12); opacity: 1; }
+  15%, 80% { transform: scale(1); opacity: 1; }
+  90%, 100% { transform: scale(0.6); opacity: 0; }
+}
+@keyframes drawTick { 0%, 12% { stroke-dashoffset: 20; } 30%, 100% { stroke-dashoffset: 0; } }
+@keyframes drawBar1 { 0%, 12% { stroke-dashoffset: 13; } 21%, 100% { stroke-dashoffset: 0; } }
+@keyframes drawBar2 { 0%, 22% { stroke-dashoffset: 13; } 31%, 100% { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .cross, .tick, .cross path, .tick path { animation: none; stroke-dashoffset: 0; }
+}
 .rowLabel {
   position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); z-index: 2;
   padding: 4px 10px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DCE6F0;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0A2540; white-space: nowrap;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0A2540; white-space: nowrap;
 }
 .vs {
-  position: absolute; left: 50%; top: clamp(30px, 3.6vw, 48px); transform: translateX(-50%); z-index: 3;
+  position: absolute; left: 50%; top: clamp(14px, 1.6vw, 22px); transform: translateX(-50%); z-index: 3;
   width: clamp(48px, 5vw, 64px); height: clamp(48px, 5vw, 64px); border-radius: 50%; background: #FFFFFF;
   box-shadow: 0 0 0 6px rgba(255,255,255,0.35), 0 20px 40px -16px rgba(10,37,64,0.5);
   display: grid; place-items: center;
-  font-family: var(--font-manrope), Manrope, sans-serif; font-size: clamp(15px, 1.6vw, 20px); font-weight: 800; letter-spacing: -0.02em; color: #1463D8;
+  font-family: var(--font-display), Manrope, sans-serif; font-size: clamp(15px, 1.6vw, 20px); font-weight: 700; letter-spacing: -0.01em; color: #1463D8;
 }
 @media (max-width: 520px) {
   .vs { top: 12px; width: 40px; height: 40px; font-size: 13px; }
@@ -307,41 +411,75 @@
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(18px, 3.5vw, 44px);
 }
 .onePct {
-  font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 800;
-  font-size: clamp(96px, 15vw, 190px); line-height: 0.85; letter-spacing: -0.06em; color: #1463D8;
+  font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(96px, 15vw, 190px); line-height: 0.85; letter-spacing: -0.035em; color: #1463D8;
 }
-.onePct span { font-size: 0.55em; letter-spacing: -0.02em; color: #12A57C; }
+.onePct .pctSign { font-size: 1em; letter-spacing: -0.01em; color: #12A57C; }
+
+/* Owl video + counting "1%" */
+.feeCountdown { display: flex; align-items: center; gap: clamp(4px, 1.2vw, 16px); }
+.feeOwl {
+  display: block; flex: none;
+  width: clamp(160px, 21vw, 300px); aspect-ratio: 0.85;
+  object-fit: cover; object-position: 11.5% 40%; /* owl + pointing arm, cropped from the 16:9 video */
+  mix-blend-mode: multiply; /* the video's white background disappears into the section tint */
+  pointer-events: none;
+}
+.onePct { display: flex; align-items: baseline; transform-origin: 30% 70%; }
+.pctDigits {
+  display: inline-block; text-align: right; overflow: visible; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  width: calc(var(--d, 1) * 0.66em);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.onePctLanded { animation: pctPop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes pctPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+/* Desktop: owl, number and copy stay on one line while the number counts down. */
+@media (min-width: 900px) {
+  .investRow { max-width: 1120px; flex-wrap: nowrap; }
+  .feeCountdown { flex: none; }
+  .investCopy { flex: 1 1 340px; min-width: 280px; max-width: 400px; }
+}
+@media (max-width: 640px) {
+  .investRow { flex-direction: column; }
+  .feeCountdown { justify-content: center; }
+}
+/* Small phones: "100%" plus the owl must fit the screen width. */
+@media (max-width: 420px) {
+  .feeOwl { width: min(160px, 31vw); }
+  .feeCountdown .onePct { font-size: min(84px, 18.5vw); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .onePctLanded { animation: none; }
+  .pctDigits { transition: none; }
+}
 .investCopy { flex: 0 1 380px; text-align: left; }
 .investCopy .eyebrow { margin: 0; font-weight: 700; letter-spacing: 0.16em; }
 .investLead {
-  margin: 10px 0 0; font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 800;
-  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.15; letter-spacing: -0.025em; color: #0A2540;
+  margin: 10px 0 0; font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.15; letter-spacing: -0.014em; color: #0A2540;
 }
 .investNote { margin: 12px 0 0; font-size: 14px; color: #43566B; }
 
-.spend { margin-top: clamp(46px, 7vw, 80px); }
-.spendTitle {
-  margin-bottom: 22px; font-family: var(--font-inter), Inter, sans-serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #5B6B7D;
+/* The section is exactly one screen: heading + owl/countdown/copy, centred and
+   scaled to the screen height so it fills the view without overflowing. */
+.investSection {
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+  padding-top: calc(69px + 4vh); padding-bottom: 4vh;
 }
-.spendList { display: grid; gap: 12px; margin: 0; }
-.spendRow {
-  display: grid; grid-template-columns: minmax(120px, 1.1fr) 3fr auto; gap: clamp(10px, 2vw, 22px); align-items: center;
-}
-.spendRow dt { font-size: 14px; color: #43566B; }
-.spendRow dd { margin: 0; font-size: 13px; color: #43566B; white-space: nowrap; }
-.spendTrack { height: 10px; border-radius: 999px; background: #EAF2FD; }
-.spendTrack span {
-  display: block; width: 0%; height: 100%; border-radius: 999px;
-  transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
-}
-.spendRowClara { padding-top: 10px; border-top: 1px solid #DCE6F0; }
-.spendRowClara dt { font-size: 15px; font-weight: 700; color: #0B7F5F; }
-.spendRowClara dd:last-child { font-size: 14px; font-weight: 700; color: #0B7F5F; }
-@media (max-width: 640px) {
-  .spendRow { grid-template-columns: 1fr auto; row-gap: 8px; }
-  .spendTrack { grid-column: 1 / -1; grid-row: 2; }
-  .spendRowClara dd:last-child { white-space: normal; text-align: right; }
+.investSection > .wrapNarrow { width: 100%; max-width: 1240px; }
+@media (min-width: 900px) {
+  .investSection .investHead h2 { font-size: clamp(36px, min(4.6vw, 7.5vh), 72px); max-width: 900px; }
+  .investSection .investRow { margin-top: clamp(28px, 6vh, 72px); max-width: 1240px; gap: clamp(24px, 3.5vw, 56px); }
+  .investSection .feeOwl { width: clamp(180px, min(24vw, 46vh), 400px); }
+  .investSection .onePct { font-size: clamp(110px, min(15vw, 27vh), 240px); }
+  .investSection .investCopy { max-width: 460px; }
+  .investSection .investLead { font-size: clamp(22px, min(2.4vw, 4.2vh), 36px); }
+  .investSection .investNote { font-size: 15px; margin-top: 16px; }
 }
 
 /* ── 11 Impact ───────────────────────────────────────── */
@@ -354,19 +492,14 @@
   border: 1px solid #DCE6F0; transform-style: preserve-3d;
 }
 .impactCard strong {
-  display: block; font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 800;
-  font-size: clamp(32px, 3.2vw, 46px); line-height: 1.05; letter-spacing: -0.03em; white-space: nowrap; color: #0A2540;
+  display: block; font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(32px, 3.2vw, 46px); line-height: 1.05; letter-spacing: -0.018em; white-space: nowrap; color: #0A2540;
 }
 .impactCard span { display: block; margin-top: 10px; font-size: 14px; line-height: 1.5; color: #43566B; }
 .impactGreen { background: #E6F6F0; border-color: rgba(18,165,124,0.35); }
 .impactGreen strong { color: #0B7F5F; }
 .impactBlue { background: #EAF2FD; border-color: rgba(20,99,216,0.3); }
 .impactBlue strong { color: #1463D8; }
-.movement {
-  margin: clamp(30px, 5vw, 50px) auto 0; max-width: 760px; text-align: center;
-  font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 700;
-  font-size: clamp(20px, 2.4vw, 30px); line-height: 1.3; letter-spacing: -0.02em; color: #0A2540;
-}
 
 /* ── 05 The 360° ring ────────────────────────────────── */
 .system { position: relative; height: 300vh; background: #F5F9FC; }
@@ -378,7 +511,7 @@
 .systemGlow { position: absolute; inset: 0; background: radial-gradient(58% 48% at 50% 58%, rgba(18,165,124,0.10), rgba(245,249,252,0) 72%); }
 .systemHead { position: relative; text-align: center; max-width: 720px; }
 .systemHead .eyebrow { margin-bottom: 14px; }
-.systemHead h2 { font-size: clamp(22px, 2.8vw, 38px); line-height: 1.18; letter-spacing: -0.025em; }
+.systemHead h2 { font-size: clamp(22px, 2.8vw, 38px); line-height: 1.18; letter-spacing: -0.014em; }
 .ringViewport { position: relative; flex: 1; width: 100%; min-height: 0; display: grid; place-items: center; perspective: 1300px; }
 .ring { position: relative; width: min(92vw, 1120px); height: clamp(220px, 34vh, 300px); transform-style: preserve-3d; }
 .ringFace {
@@ -392,7 +525,7 @@
 }
 .ringCard > span, .ringCard > h3, .ringCard > p { position: relative; z-index: 1; max-width: 52%; }
 .ringNum { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; color: #7FE0C0; }
-.ringCard h3 { margin-top: 12px; font-size: clamp(18px, 1.9vw, 26px); line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF; }
+.ringCard h3 { margin-top: 12px; font-size: clamp(18px, 1.9vw, 26px); line-height: 1.1; letter-spacing: -0.01em; color: #FFFFFF; }
 .ringCard p { margin: 10px 0 0; font-size: clamp(13px, 1.05vw, 15px); line-height: 1.55; color: #FFFFFF; }
 .ringCardAccent { background: #1463D8; border-color: #1463D8; box-shadow: 0 30px 60px -40px rgba(10,37,64,0.4); }
 .ringCardAccent > span, .ringCardAccent > h3, .ringCardAccent > p { max-width: none; }
@@ -434,25 +567,24 @@
 @media (max-width: 640px) {
   .techVisual { flex-basis: 100%; height: 300px; }
 }
-.techTags {
-  position: absolute; left: clamp(14px, 2vw, 22px); top: clamp(14px, 2vw, 22px);
-  margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; pointer-events: none;
-}
-.techTags li {
-  padding: 8px 14px; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 700; color: #0A2540;
-  box-shadow: 0 10px 24px -12px rgba(10,37,64,0.4);
-}
-.techTags .techTagGreen { background: #12A57C; color: #FFFFFF; box-shadow: none; }
+/* Background video fills the panel. The video's small star watermark sits near
+   its bottom-right; framing the left of the frame and zooming slightly keeps it
+   out of view. */
+.techVideo { object-fit: cover; object-position: 50% center; transform: scale(1.06); transform-origin: 100% 100%; }
 .techCopy { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: clamp(16px, 2.4vh, 24px); }
 .techCopy .eyebrow { margin: 0; }
-.techCopy h2 { font-size: clamp(28px, 3.3vw, 46px); line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance; }
+.techCopy h2 { font-size: clamp(28px, 3.3vw, 46px); line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; }
 .techCopy > p:not(.eyebrow) { margin: 0; font-size: clamp(15px, 1.2vw, 17px); line-height: 1.6; color: #43566B; }
 .instruments { margin: 0; padding: 0; list-style: none; border-top: 1px solid #DCE6F0; }
 .instruments li {
-  display: flex; align-items: center; gap: 14px; padding: clamp(8px, 1.3vh, 12px) 0; border-bottom: 1px solid #DCE6F0;
-  font-family: var(--font-manrope), Manrope, sans-serif; font-size: clamp(15px, 1.25vw, 17px); font-weight: 700; color: #0A2540;
+  display: flex; align-items: flex-start; gap: 14px; padding: clamp(10px, 1.6vh, 14px) 0; border-bottom: 1px solid #DCE6F0;
+  font-size: 14px; line-height: 1.5; color: #43566B;
 }
-.instruments span { flex: none; font-size: 12px; font-weight: 800; color: #12A57C; }
+.instruments strong {
+  display: block; margin-bottom: 2px;
+  font-family: var(--font-display), Manrope, sans-serif; font-size: clamp(15px, 1.25vw, 17px); font-weight: 700; color: #0A2540;
+}
+.instruments span { flex: none; padding-top: 3px; font-size: 12px; font-weight: 700; color: #12A57C; }
 
 /* ── 07 What you get ─────────────────────────────────── */
 .offers {
@@ -490,7 +622,7 @@
 .idTop { display: flex; align-items: center; justify-content: space-between; }
 .idTop img { height: 20px; width: auto; }
 .idTop span { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; color: #0B7F5F; }
-.idName { margin-top: 12px; font-family: var(--font-manrope), Manrope, sans-serif; font-size: 17px; font-weight: 800; color: #0A2540; }
+.idName { margin-top: 12px; font-family: var(--font-display), Manrope, sans-serif; font-size: 17px; font-weight: 700; color: #0A2540; }
 .idSub { font-size: 11px; color: #5B6B7D; }
 .idYears { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .idYears > div { padding: 7px 9px; border-radius: 9px; background: #F5F9FC; font-size: 11px; font-weight: 700; color: #0A2540; }
@@ -503,7 +635,7 @@
   border-radius: 16px; background: #FFFFFF; padding: 14px 16px; box-shadow: 0 30px 50px -26px rgba(10,37,64,0.5);
 }
 .dashTop { display: flex; align-items: center; justify-content: space-between; }
-.dashTop span:first-child { font-family: var(--font-manrope), Manrope, sans-serif; font-size: 12px; font-weight: 800; color: #0A2540; }
+.dashTop span:first-child { font-family: var(--font-display), Manrope, sans-serif; font-size: 12px; font-weight: 700; color: #0A2540; }
 .dashTop span:last-child { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: #5B6B7D; }
 .dashRows { margin-top: 12px; display: grid; gap: 8px; }
 .dashRow { display: grid; grid-template-columns: 54px 1fr 32px; gap: 8px; align-items: center; }
@@ -517,9 +649,9 @@
 
 .offerBody { position: relative; flex: 1; padding: clamp(22px, 2.4vw, 30px); }
 .offerMeta { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.offerMeta > span:first-child { font-family: var(--font-manrope), Manrope, sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; color: #1463D8; }
+.offerMeta > span:first-child { font-family: var(--font-display), Manrope, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: #1463D8; }
 .audience { padding: 5px 11px; border-radius: 999px; background: #EAF2FD; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #1463D8; }
-.offer h3 { margin-top: 14px; font-size: clamp(24px, 2.3vw, 32px); line-height: 1.05; letter-spacing: -0.03em; }
+.offer h3 { margin-top: 14px; font-size: clamp(24px, 2.3vw, 32px); line-height: 1.05; letter-spacing: -0.018em; }
 .offerBody > p { margin: 10px 0 16px; font-size: 14px; line-height: 1.55; color: #43566B; }
 .offerBlue .offerMeta > span:first-child, .offerBlue h3, .offerBlue .offerBody > p { color: #FFFFFF; }
 .offerBlue .audience { background: rgba(255,255,255,0.16); color: #FFFFFF; }
@@ -539,17 +671,17 @@
   position: relative; overflow: hidden;
   padding: clamp(100px, 16vh, 180px) clamp(16px, 5vw, 80px) clamp(50px, 7vh, 80px); background: #FFFFFF;
 }
-.bookGlow { position: absolute; inset: 0; background: radial-gradient(70% 60% at 50% 100%, rgba(20,99,216,0.12), rgba(255,255,255,0) 70%); }
 .bookInner { position: relative; max-width: 1000px; margin: 0 auto; text-align: center; }
-.proverb { position: relative; margin: 0 auto; max-width: 900px; text-align: left; }
+/* "Plant a tree" proverb with a THEN → TODAY timeline, above the closing CTA. */
+.proverb { position: relative; margin: 0 auto clamp(56px, 8vw, 96px); max-width: 900px; text-align: left; }
 .proverbRow { margin: 0; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 24px; }
 .proverbRow > div { min-width: 0; }
-.proverbLead, .proverbLeadGreen { margin: 0; font-size: clamp(13px, 1.2vw, 15px); font-weight: 600; letter-spacing: 0.04em; color: #43566B; }
-.proverbLeadGreen { color: #0B7F5F; }
+.proverbLead, .proverbLeadNow { margin: 0; font-size: clamp(13px, 1.2vw, 15px); font-weight: 600; color: #43566B; }
+.proverbLeadNow { color: #0B7F5F; }
 .proverbThen {
   position: relative; display: inline-block; margin: 4px 0 0;
-  font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 800;
-  font-size: clamp(30px, 4.6vw, 62px); line-height: 1; letter-spacing: -0.04em; color: #A9B7C6;
+  font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(30px, 4.6vw, 62px); line-height: 1; letter-spacing: -0.03em; color: #A9B7C6;
 }
 .proverbThen span {
   position: absolute; left: -2%; right: -2%; top: 54%; height: clamp(3px, 0.4vw, 5px);
@@ -557,10 +689,9 @@
 }
 .proverbRight { text-align: right; }
 .proverbNow {
-  margin: 0; font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 800;
-  font-size: clamp(64px, 11vw, 150px); line-height: 0.85; letter-spacing: -0.06em; color: #0B7F5F;
+  margin: 0; font-family: var(--font-display), Manrope, sans-serif; font-weight: 800;
+  font-size: clamp(64px, 11vw, 150px); line-height: 0.85; letter-spacing: -0.045em; color: #0B7F5F;
 }
-.proverbNow span { font-size: 0.5em; color: #12A57C; }
 .timeline { position: relative; margin-top: clamp(18px, 2.6vw, 30px); height: 22px; }
 .timelineLine {
   position: absolute; left: 0; right: 0; top: 50%; height: 3px; transform: translateY(-50%); border-radius: 3px;
@@ -574,31 +705,22 @@
 }
 .timelineNowLabel { position: absolute; right: 0; top: 30px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: #0B7F5F; }
 .bookTitle {
-  margin: calc(clamp(56px, 8vw, 96px) + 24px) auto 0; max-width: 860px;
-  font-size: clamp(34px, 6vw, 84px); line-height: 1; letter-spacing: -0.04em;
+  margin: 0 auto; max-width: 860px;
+  font-size: clamp(30px, 4.2vw, 56px); line-height: 1.05; letter-spacing: -0.022em;
 }
 .bookLead { margin: 24px auto 0; max-width: 520px; font-size: clamp(15px, 1.6vw, 18px); line-height: 1.6; color: #43566B; }
 /* The original design sized these three boxes without their padding. */
 .bookCard, .idCard, .dash { box-sizing: content-box; }
 .bookCard {
-  margin: 40px auto 0; max-width: 620px; padding: clamp(24px, 3vw, 36px); border-radius: 24px;
-  background: #FFFFFF; border: 1px solid #DCE6F0; box-shadow: 0 40px 80px -50px rgba(10,37,64,0.45);
+  margin: 32px auto 0; padding: 0;
   display: flex; flex-direction: column; align-items: center; gap: 16px;
 }
 .btnBig {
   padding: 18px 32px; border-radius: 999px; background: #1463D8; color: #FFFFFF;
-  font-family: var(--font-manrope), Manrope, sans-serif; font-size: 17px; font-weight: 700;
+  font-family: var(--font-display), Manrope, sans-serif; font-size: 17px; font-weight: 700;
 }
 .btnBig:hover { background: #0F52B8; color: #FFFFFF; }
-.bookPoints {
-  margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 6px 14px; font-size: 13px; color: #43566B;
-}
-.bookPoints li:not(:last-child)::after { content: "•"; margin-left: 14px; color: #12A57C; }
-@media (max-width: 520px) {
-  .bookPoints { flex-direction: column; align-items: center; }
-  .bookPoints li:not(:last-child)::after { content: none; }
-}
+
 .bookFine { margin: 22px 0 0; font-size: 13px; color: #5B6B7D; }
 
 /* ═══ Responsive refinements ══════════════════════════════════════════════
@@ -629,12 +751,13 @@
 
 /* Comparison table on very narrow phones: let long words wrap inside cells. */
 @media (max-width: 400px) {
-  .versusTable td, .versusTable td + td { font-size: 13px; padding-left: 10px; padding-right: 10px; gap: 6px; hyphens: auto; overflow-wrap: break-word; }
+  .versusTable td, .versusTable td + td { font-size: 13px; padding-left: 10px; padding-right: 10px; gap: 8px; overflow-wrap: break-word; }
   .versusTable th, .versusTable th + th { padding-left: 10px; padding-right: 10px; font-size: 18px; }
-  .cross, .tick { width: 16px; height: 16px; font-size: 10px; }
+  .cross, .tick { width: 28px; height: 28px; }
 }
 @media (max-width: 340px) {
-  .versusTable td, .versusTable td + td { font-size: 12px; overflow-wrap: anywhere; }
+  .versusTable td, .versusTable td + td { font-size: 12px; overflow-wrap: break-word; gap: 6px; padding-left: 8px; padding-right: 8px; }
+  .cross, .tick { width: 24px; height: 24px; }
 }
 
 /* 360° ring on phones: tighter cards so titles never get cut off. */
@@ -662,7 +785,6 @@
 @media (max-height: 500px) {
   .cue { padding-top: calc(60px + 3vh); padding-bottom: 3vh; }
   .cueBox, .cueBoxWide { width: min(52vw, 440px); }
-  .pill { margin-bottom: 10px; }
   .heroTitle { font-size: clamp(20px, 7.5vh, 34px); }
   .cueTitle, .cueTitleBig { font-size: clamp(20px, 7.5vh, 34px); }
   .cue .eyebrow { margin-bottom: 8px; }
@@ -693,16 +815,99 @@
   .realitySection .statCard span, .pillars .pillar p { max-width: max(60%, 150px); }
   .realitySection .statImg { object-position: var(--pos, right) center; }
 }
-/* Narrower desktop cards (900–1199px): a slightly stronger wash behind the text. */
-@media (min-width: 641px) and (max-width: 1199px) {
-  .statCard::after, .pillar::after {
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0) 62%),
-      linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.86) 45%, rgba(255,255,255,0.25) 80%, rgba(255,255,255,0) 100%);
-  }
-  .statCardBlue::after {
-    background:
-      linear-gradient(180deg, rgba(234,242,253,0.75) 0%, rgba(234,242,253,0.5) 40%, rgba(234,242,253,0) 62%),
-      linear-gradient(90deg, rgba(234,242,253,0.96) 0%, rgba(234,242,253,0.86) 45%, rgba(234,242,253,0.25) 80%, rgba(234,242,253,0) 100%);
+
+/* ═══ Sections 3 & 4 — bigger cards (desktop/laptop, ≥900px) ═══════════════
+   The cards take up the screen height the section has left over, so each
+   section stays one screen with no large gaps above or below. Text sits
+   tighter in the top-left corner; the white patch hugs it so more of the
+   animation shows. */
+@media (min-width: 900px) {
+  .pillars .pillar { min-height: clamp(240px, calc(100svh - 400px), 520px); padding: 22px 22px 20px; gap: 10px; }
+  .realitySection .statCard { min-height: clamp(240px, calc(100svh - 330px), 520px); padding: 22px 22px 20px; }
+  .whyFit { gap: clamp(16px, 2.6vh, 30px); padding-top: calc(69px + 1.5vh); padding-bottom: 2.5vh; }
+  .realitySection { padding-top: calc(69px + 2.5vh); padding-bottom: 2.5vh; }
+  .realitySection .splitHead { margin-bottom: clamp(24px, 4vh, 44px); }
+
+  .pillar::after { width: 72%; height: min(54%, 190px); }
+  .statCard::after { width: 72%; height: min(58%, 200px); }
+  .pillars .pillar p, .realitySection .statCard span { max-width: 15em; }
+}
+/* Tall cards show a narrow slice of each wide video: frame each one on its
+   student (per-card --pos, set in app/page.tsx). The watermark zoom keeps
+   the same anchor so the framing holds. */
+@media (min-width: 900px) {
+  .pillars video.pillarImg, .realitySection video.statImg {
+    object-position: var(--pos, 100%) center; transform-origin: var(--pos, 100%) 0%;
   }
 }
+
+/* ═══ Camp vs system — one screen ═══════════════════════════════════════
+   Heading, intro and comparison card fit a single screen; sizes scale with
+   the screen height. On desktop the intro sits beside the heading. */
+.campSection {
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+  padding-top: calc(69px + 3vh); padding-bottom: 3vh;
+}
+.campSection > .wrap { width: 100%; }
+.campSection .versus { margin-top: clamp(18px, 3.5vh, 40px); }
+@media (min-width: 900px) {
+  .campSection .leftHead {
+    max-width: none; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    column-gap: clamp(32px, 4vw, 72px); align-items: end;
+  }
+  .campSection .leftHead .eyebrow { grid-column: 1 / -1; margin-bottom: clamp(8px, 1.4vh, 16px); }
+  .campSection .leftHead h2 { font-size: clamp(30px, min(4.2vw, 6vh), 60px); }
+  .campSection .leftHead > p:last-child { margin: 0 0 6px; max-width: 460px; font-size: clamp(14px, min(1.15vw, 2vh), 17px); }
+  .campSection .versusTable th, .campSection .versusTable th + th {
+    padding-top: clamp(16px, 3vh, 36px); padding-bottom: clamp(12px, 2.2vh, 26px);
+    font-size: clamp(20px, min(2.4vw, 3.8vh), 34px);
+  }
+  .campSection .versusTable th span { margin-bottom: 6px; }
+  .campSection .versusTable td, .campSection .versusTable td + td {
+    padding-top: clamp(10px, 1.7vh, 24px); padding-bottom: clamp(10px, 1.7vh, 24px);
+    font-size: clamp(14px, min(1.4vw, 2.3vh), 19px);
+  }
+  .campSection .cross, .campSection .tick { width: clamp(30px, 4.6vh, 44px); height: clamp(30px, 4.6vh, 44px); }
+}
+@media (max-width: 640px) {
+  .campSection { padding-top: calc(63px + 2vh); padding-bottom: 2vh; }
+  .campSection .leftHead .eyebrow { margin-bottom: 8px; }
+  .campSection .leftHead h2 { font-size: 26px; }
+  .campSection .leftHead > p:last-child { margin-top: 10px; font-size: 14px; line-height: 1.5; }
+  .campSection .versus { margin-top: 16px; }
+  .campSection .versusTable th, .campSection .versusTable th + th { padding-top: 46px; padding-bottom: 12px; font-size: 18px; }
+  .campSection .versusTable th span { font-size: 10px; margin-bottom: 4px; }
+  .campSection .versusTable td, .campSection .versusTable td + td { padding-top: 9px; padding-bottom: 9px; font-size: 13.5px; line-height: 1.35; }
+  .campSection .vs { top: 8px; }
+}
+/* Desktop: use the room — larger type and rows, still within one screen. */
+@media (min-width: 900px) {
+  .campSection .leftHead h2 { font-size: clamp(30px, min(3.7vw, 6.2vh), 52px); }
+  .campSection .leftHead > p:last-child { font-size: clamp(14px, min(1.2vw, 2.2vh), 18px); }
+  .campSection .versus { margin-top: clamp(18px, 3.8vh, 46px); }
+  .campSection .versusTable th, .campSection .versusTable th + th { font-size: clamp(20px, min(2.5vw, 4.2vh), 38px); }
+  .campSection .versusTable td, .campSection .versusTable td + td {
+    padding-top: clamp(10px, 1.95vh, 26px); padding-bottom: clamp(10px, 1.95vh, 26px);
+    font-size: clamp(14px, min(1.45vw, 2.4vh), 20px);
+  }
+  .campSection .cross, .campSection .tick { width: clamp(30px, 4.8vh, 46px); height: clamp(30px, 4.8vh, 46px); }
+}
+/* Shorter phones: tighter still so the whole comparison fits. */
+@media (max-width: 640px) and (max-height: 800px) {
+  .campSection .leftHead h2 { font-size: 22px; }
+  .campSection .leftHead > p:last-child { margin-top: 8px; font-size: 13px; }
+  .campSection .versus { margin-top: 12px; }
+  .campSection .versusTable th, .campSection .versusTable th + th { padding-top: 40px; padding-bottom: 8px; font-size: 16px; }
+  .campSection .versusTable td, .campSection .versusTable td + td { padding-top: 6px; padding-bottom: 6px; font-size: 12.5px; line-height: 1.3; }
+  .campSection .cross, .campSection .tick { width: 24px; height: 24px; }
+  .campSection .rowLabel { padding: 2px 8px; font-size: 9px; }
+}
+/* Smallest phones: keep the icons big enough to read but leave room for long words. */
+@media (max-width: 340px) {
+  .campSection .cross, .campSection .tick { width: 20px; height: 20px; }
+  .campSection .versusTable td, .campSection .versusTable td + td { gap: 6px; font-size: 12px; }
+}
+
+/* The owl video blends its white background away (multiply). While the block
+   fades in it has its own layer, so give it the section colour to blend with. */
+.investSection .investHead { background: #F5F9FC; box-shadow: 0 0 0 200px #F5F9FC; }

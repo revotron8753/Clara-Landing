@@ -71,8 +71,7 @@ export default function AboutPage() {
         <div className={styles.heroText}>
           <span className={styles.pill}>Our Journey</span>
           <h1>
-            Building a Healthier Future,{" "}
-            <span className={styles.blue}>One Child at a Time</span>
+            Building a Healthier Future, One Child at a Time
           </h1>
           <p className={styles.lead}>
             Founded in 2018, Clara Healtonation began with a simple belief: every child deserves
@@ -98,8 +97,7 @@ export default function AboutPage() {
       <section className={styles.journey}>
         <div className={styles.journeyGrid}>
           <div>
-            <div className={styles.eyebrow}>How we got here</div>
-            <h2>From a vision to a technology-enabled approach</h2>
+            <h2>How we started</h2>
           </div>
           <div className={styles.prose}>
             <p>
@@ -116,7 +114,6 @@ export default function AboutPage() {
         </div>
 
         <div className={styles.vision}>
-          <div className={styles.eyebrowLight}>Our vision</div>
           <p className={styles.visionText}>
             To reach one million students and help build a healthier future for India —{" "}
             <span>one school, one child and one screening at a time.</span>
@@ -135,8 +132,7 @@ export default function AboutPage() {
 
       <section className={styles.founders} id="founders">
         <div className={styles.sectionHead}>
-          <div className={styles.eyebrow}>The Founders&apos; Story</div>
-          <h2>The people behind Clara</h2>
+          <h2>The Founders&apos; Story</h2>
         </div>
         {FOUNDERS.map((f, i) => (
           <article key={f.name} className={`${styles.founder} ${i % 2 ? styles.flip : ""}`}>
@@ -160,18 +156,14 @@ export default function AboutPage() {
 
       <section className={styles.gallery} id="gallery">
         <div className={styles.sectionHead}>
-          <div className={styles.eyebrow}>Gallery</div>
-          <h2>Moments from our camps, 2018–2020</h2>
-          <p>Screenings, smiles and lessons in healthy habits from the schools we&apos;ve worked with.</p>
+          <h2>Camps, 2018–2020</h2>
+          <p>Photos from school health camps we ran between 2018 and 2020.</p>
         </div>
         <Gallery />
       </section>
 
       <section className={styles.cta}>
-        <h2>
-          We reveal the gift of health.{" "}
-          <span className={styles.blue}>You nurture the gift of education.</span>
-        </h2>
+        <h2>Want Clara at your school?</h2>
         <Link href="/#book" className={styles.ctaBtn}>{CTA_LABEL}</Link>
       </section>
     </main>

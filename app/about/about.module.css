@@ -9,20 +9,19 @@
   --line: #DCE6F0;
   --tint: #F5F9FC;
   --gutter: clamp(16px, 5vw, 80px);
-  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
   color: var(--ink);
   background: #FFFFFF;
 }
 .page h1, .page h2, .page h3 {
-  font-family: var(--font-manrope), Manrope, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display), Manrope, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.018em;
   margin: 0;
   text-wrap: balance;
 }
 .page h2 { font-size: clamp(28px, 3.6vw, 48px); line-height: 1.08; }
 .page p { text-wrap: pretty; }
-.blue { color: var(--blue); }
 
 /* Hero */
 .hero {
@@ -35,7 +34,7 @@
   font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #FFFFFF;
   margin-bottom: 22px;
 }
-.hero h1 { font-size: clamp(34px, 5vw, 68px); line-height: 1.03; letter-spacing: -0.035em; }
+.hero h1 { font-size: clamp(34px, 5vw, 68px); line-height: 1.03; letter-spacing: -0.02em; }
 .lead { margin: 24px 0 0; max-width: 520px; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.65; color: var(--muted); }
 .collage { position: relative; aspect-ratio: 1 / 0.9; }
 .collage img {
@@ -54,8 +53,8 @@
 .stat { padding: 26px 8px 26px 0; border-top: 2px solid var(--line); }
 .stat:first-child { border-top-color: var(--blue); }
 .stat strong {
-  display: block; font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 800;
-  font-size: clamp(30px, 3.6vw, 48px); letter-spacing: -0.04em; line-height: 1;
+  display: block; font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(30px, 3.6vw, 48px); letter-spacing: -0.022em; line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 .stat span { display: block; margin-top: 10px; font-size: 14px; font-weight: 500; color: var(--soft); }
@@ -63,11 +62,6 @@
 /* Journey */
 .journey { max-width: 1240px; margin: 0 auto; padding: clamp(80px, 12vh, 140px) var(--gutter) 0; }
 .journeyGrid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(28px, 5vw, 80px); }
-.eyebrow, .eyebrowLight {
-  font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--green); margin-bottom: 16px;
-}
-.eyebrowLight { color: #BFE9DA; }
 .prose p { margin: 0 0 20px; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.75; color: var(--muted); }
 .prose p:last-child { margin-bottom: 0; }
 
@@ -80,8 +74,8 @@
 }
 .visionText {
   margin: 0; max-width: 900px;
-  font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 700;
-  font-size: clamp(22px, 2.8vw, 38px); line-height: 1.25; letter-spacing: -0.02em;
+  font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
+  font-size: clamp(22px, 2.8vw, 38px); line-height: 1.25; letter-spacing: -0.01em;
 }
 .visionText span { color: #9EEBCF; }
 .progress { margin-top: clamp(32px, 4vw, 48px); max-width: 900px; }
@@ -115,11 +109,11 @@
 .mission {
   margin: 30px 0 0; padding: 22px 24px; border-left: 4px solid var(--green-bright);
   background: #EEF8F4; border-radius: 0 16px 16px 0;
-  font-family: var(--font-manrope), Manrope, sans-serif; font-weight: 700;
+  font-family: var(--font-display), Manrope, sans-serif; font-weight: 700;
   font-size: clamp(17px, 1.5vw, 21px); line-height: 1.45; color: var(--ink);
 }
 .mission span {
-  display: block; margin-bottom: 8px; font-family: var(--font-inter), Inter, sans-serif;
+  display: block; margin-bottom: 8px; font-family: var(--font-body), Inter, system-ui, sans-serif;
   font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green);
 }
 
@@ -165,7 +159,7 @@
   padding: clamp(90px, 14vh, 160px) var(--gutter);
   background: radial-gradient(70% 60% at 50% 100%, rgba(20,99,216,0.12), rgba(255,255,255,0) 70%);
 }
-.cta h2 { max-width: 860px; margin: 0 auto; font-size: clamp(30px, 5vw, 64px); line-height: 1.02; letter-spacing: -0.04em; }
+.cta h2 { max-width: 860px; margin: 0 auto; font-size: clamp(30px, 5vw, 64px); line-height: 1.02; letter-spacing: -0.022em; }
 .ctaBtn {
   display: inline-block; margin-top: 36px; padding: 16px 28px; border-radius: 999px;
   background: var(--blue); color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none;

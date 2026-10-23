@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 import { easeInOut, prefersReducedMotion, progressOf, smoothstep } from "./scroll";
 import styles from "@/app/home.module.css";
 
-const FRAME_COUNT = 60;
-const frameSrc = (i: number) => `/home/frames/f${String(i).padStart(2, "0")}.webp`;
+const FRAME_COUNT = 100;
+const frameSrc = (i: number) => `/home/frames/f${String(i + 1).padStart(3, "0")}.webp`;
 
 /**
  * The scroll-scrubbed hero: a 60-frame image sequence painted on a canvas,
@@ -102,7 +102,7 @@ export default function HeroScroll({ children }: { children: React.ReactNode }) 
           ref={canvasRef}
           className={styles.heroCanvas}
           role="img"
-          aria-label="A schoolgirl in uniform standing in her school courtyard, wearing a red blindfold that comes off as you scroll"
+          aria-label="A schoolgirl in uniform on her school playground, wearing a red blindfold that she takes off as you scroll"
         />
         <div className={styles.heroShadeX} />
         <div className={styles.heroShadeY} />

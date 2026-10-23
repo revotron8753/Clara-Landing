@@ -79,8 +79,7 @@ export default function ScreeningRing({ faces }: { faces: Indicator[][] }) {
       <div className={styles.systemStage}>
         <div className={styles.systemGlow} />
         <header className={styles.systemHead}>
-          <p className={styles.eyebrow}>360° comprehensive screening</p>
-          <h2 id="system-title">Eight critical indicators, in one visit</h2>
+          <h2 id="system-title">What we check in one visit</h2>
         </header>
 
         <div className={styles.ringViewport}>
@@ -108,7 +107,7 @@ export default function ScreeningRing({ faces }: { faces: Indicator[][] }) {
         <div ref={dotsRef} className={styles.ringDots} aria-hidden="true">
           {faces.map((_, i) => <span key={i} className={i === 0 ? styles.dotOn : undefined} />)}
         </div>
-        <p className={styles.systemNote}>Each indicator becomes a data point in the child&apos;s record, compared against last year&apos;s.</p>
+        <p className={styles.systemNote}>Every result is saved to the child&apos;s record and compared with the previous year.</p>
       </div>
     </section>
   );

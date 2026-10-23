@@ -1,18 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
+import { Inter, Manrope } from "next/font/google";
 import { LOGO, OG_DEFAULTS, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const inter = localFont({
-  src: "./fonts/inter-latin.woff2",
-  weight: "400 700",
-  variable: "--font-inter",
+// Headings: Manrope. Body: Inter. Both self-hosted by Next.js at build time.
+const display = Manrope({
+  subsets: ["latin"],
+  variable: "--font-display",
   display: "swap",
 });
-const manrope = localFont({
-  src: "./fonts/manrope-latin.woff2",
-  weight: "500 800",
-  variable: "--font-manrope",
+const body = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -59,7 +58,7 @@ const organizationLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${inter.variable} ${manrope.variable}`}>
+    <html lang="en-IN" className={`${display.variable} ${body.variable}`}>
       <body>
         <script
           type="application/ld+json"

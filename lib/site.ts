@@ -7,16 +7,16 @@ export const SITE_URL = (process.env.SITE_URL ?? "http://localhost:3000").replac
 export const SITE_NAME = "Clara Healtonation";
 
 export const SITE_DESCRIPTION =
-  "India's first non-invasive digital school health screening system. One screening, one digital health record and one longitudinal view of every child, for CBSE and NEP 2020 compliant schools.";
+  "Non-invasive health screening for schools in India, with a digital health record for every student. Helps schools meet the CBSE and NEP 2020 requirement for annual health checkups.";
 
 export const LOGO = "/home/clara-healtonation-logo.png";
 
-export const CTA_LABEL = "Book a 15-Minute School Demo";
+export const CTA_LABEL = "Book a 15-minute demo";
 
 // Next.js replaces (not merges) openGraph per page, so pages spread these in.
 export const OG_DEFAULTS = {
   type: "website" as const,
   siteName: SITE_NAME,
   locale: "en_IN",
-  images: [{ url: "/home/digital-school-health-screening.png", width: 1873, height: 840, alt: SITE_NAME }],
+  images: [{ url: "/home/clara-school-courtyard-banner.png", width: 1874, height: 839, alt: SITE_NAME }],
 };
